@@ -6,31 +6,44 @@ PageStackWindow {
 
     initialPage: mainPage
 
-    MainPage {
-        id: mainPage
-        orientationLock: PageOrientation.LockPortrait
-    }
+    //showStatusBar: false
+    //showToolBar: false
 
-    SettingsPage {
-        id: settingsPage
-        orientationLock: PageOrientation.LockPortrait
+    MainPage {
+	id: mainPage
+
+	anchors.top: parent.top
+	anchors.left: parent.left
+	anchors.right: parent.right
+	anchors.bottom: commonTools.top
     }
 
     ToolBarLayout {
         id: commonTools
         visible: true
         ToolIcon {
-            platformIconId: "toolbar-settings"
+            platformIconId: "toolbar-view-menu"
             anchors.right: (parent === undefined) ? undefined : parent.right
-            onClicked: {
-                onClicked: {
-                    pageStack.push(settingsPage);
-                }
-            }
+            onClicked: (myMenu.status == DialogStatus.Closed) ? myMenu.open() : myMenu.close()
+        }
+    }
+
+    Menu {
+        id: myMenu
+        visualParent: pageStack
+        MenuLayout {
+
+	    MenuItem { text: qsTr("About")
+		onClicked: myDialog.open();
+	    }
+
+	    MenuItem { text: qsTr("Quit")
+		onClicked: wMain.quit();
+	    }
         }
     }
 
     AboutDialog{
-        id: myDialog
+	id: myDialog
     }
 }

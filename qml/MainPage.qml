@@ -2,235 +2,308 @@ import QtQuick 1.1
 import com.nokia.meego 1.0
 
 Page {
-    width: 480
+
     tools: commonTools
 
     TittleBar{
-	id: tittleBar;
-	tittle: "Kall";
-	author: "By Iktwo";
-	color: "green";
-	logo: "qrc:/logo.png";
-	//logo: "qrc:/backspace.png";
-	logoLink: "http://store.ovi.mobi/publisher/Iktwo/";
-	//tittleLink: "http://store.ovi.mobi/content/213823";
-	authorLink: "http://store.ovi.mobi/publisher/Iktwo/";
-    }
-
-    Rectangle {
-	id: rectangle1
-	y: 73
-	height: 120
-	color: "#211c21"
-	anchors.right: parent.right
-	anchors.rightMargin: 0
-	anchors.left: parent.left
-	anchors.leftMargin: 0
-
-	Text {
-	    id: number
-	    width: 420
-	    height: 120
-	    color: "#ffffff"
-	    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-	    horizontalAlignment: Text.AlignRight
-	    verticalAlignment: Text.AlignVCenter
-	    anchors.right: btnBack.right
-	    anchors.top: parent.top
-	    anchors.bottom: parent.bottom
-	    font.pointSize: 35
-	}
-
-	MouseArea{
-	    x: 420
-	    y: 0
-	    width: 60
-	    height: 120
-	    onClicked: {
-		number.text = number.text.substring(0,number.text.length-1)
-	    }
-	    onPressed: {
-		btnBack.state = "PRESSED"
-	    }
-
-	    onReleased: {
-		btnBack.state = "NORMAL"
-	    }
-
-	    Image {
-		id: btnBack
-		x: 0
-		y: 0
-		width: 48
-		height: 48
-		source: "qrc:/backspace.png"
-		anchors.verticalCenter: parent.verticalCenter
-
-		states: [
-		    State {
-			name: "NORMAL"
-			PropertyChanges {
-			    target: btnBack;
-			    source: "qrc:/backspace.png";
-			}
-		    },
-		    State {
-			name: "PRESSED"
-			PropertyChanges {
-			    target: btnBack;
-			    source: "qrc:/backspace-selected.png";
-			}
-		    }
-		]
-	    }
-	}
-    }
-
-    KeypadButton{
-	id: button1;
-	x: 20
-	y: 194
-	text: "1";
-	onPressed: {
-	    if (number.text.length<30){
-		number.text = number.text + "1"
-	    }
-	}
-    }
-
-    KeypadButton{
-	id: button2;
-	x: 190
-	y: 194
-	text: "2";
-	onPressed: {
-	    if (number.text.length<30){
-		number.text = number.text + "2"
-	    }
-	}
-    }
-
-    KeypadButton{
-	id: button3;
-	x: 350
-	y: 194
-	text: "3";
-	onPressed: {
-	    if (number.text.length<30){
-		number.text = number.text + "3"
-	    }
-	}
-    }
-
-    KeypadButton{
-	id: button4;
-	x: 20
-	y: 314
-	text: "4";
-	onPressed: {
-	    if (number.text.length<30){
-		number.text = number.text + "4"
-	    }
-	}
-    }
-    KeypadButton{
-	id: button5;
-	x: 190
-	y: 314
-	text: "5";
-	onPressed: {
-	    if (number.text.length<30){
-		number.text = number.text + "5"
-	    }
-	}
-    }
-
-    KeypadButton{
-	id: button6;
-	x: 350
-	y: 314
-	text: "6";
-	onPressed: {
-	    if (number.text.length<30){
-		number.text = number.text + "6"
-	    }
-	}
-    }
-
-    KeypadButton{
-	id: button7;
-	x: 20
-	y: 434
-	text: "7";
-	onPressed: {
-	    if (number.text.length<30){
-		number.text = number.text + "7"
-	    }
-	}
-    }
-
-    KeypadButton{
-	id: button8;
-	x: 190
-	y: 434
-	text: "8";
-	onPressed: {
-	    if (number.text.length<30){
-		number.text = number.text + "8"
-	    }
-	}
-    }
-
-    KeypadButton{
-	id: button9;
-	x: 350
-	y: 434
-	text: "9";
-	onPressed: {
-	    if (number.text.length<30){
-		number.text = number.text + "9"
-	    }
-	}
+        id: tittleBar;
+        tittle: "mac2wepkey";
+        author: "By Iktwo";
+        color: "green";
+        logo: "qrc:/icons/logo.png";
+        logoLink: "http://store.ovi.mobi/publisher/Iktwo/";
+        //tittleLink: "http://store.ovi.mobi/content/213823";
+        authorLink: "http://store.ovi.mobi/publisher/Iktwo/";
     }
 
 
-    KeypadButton{
-	id: buttonStar;
-	x: 20
-	y: 554
-	text: "*";
-	onPressed: {
-	    if (number.text.length<30){
-		number.text = number.text + "*"
-	    }
-	}
+    Flow {
+        id: flow
+        x: 0
+        y: 0+mainPageColumn.height
+        width: 360
+        height: parent.height-mainPageColumn.height
+        spacing: 2
+        anchors.topMargin: 73
+        anchors.fill: parent
+
+        Label {
+            id: lblOUI
+            text: qsTr("MAC")
+            width: 92*0.5;
+
+            //anchors.verticalCenter: txtOui.verticalCenter
+        }
+
+        TextArea{
+            id: txtOui
+            width: 92*1.5;
+            //text: currentOUI
+            enableSoftwareInputPanel : false
+            placeholderText: "_:_:_"
+            onTextChanged: {
+                wMain.updateOUI(txtOui.text);
+            }
+        }
+
+        Button {
+            id: btnSeparator;
+            width: 92*3;
+            height: txtOui.height;
+            opacity: 0.001;
+        }
+
+        Label {
+            id: lblOrg
+            text: qsTr("Key")
+            width: 92*0.5;
+            anchors.verticalCenter: txtOrg.verticalCenter
+            //anchors.verticalCenterOffset: 30;
+        }
+
+        TextArea{
+            id: txtOrg
+            width: 92*4.5;
+            text:txtORG;
+            enableSoftwareInputPanel : false
+        }
+
+        Button {
+            id: btn0;
+            text: "0";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_0_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+
+            /*platformStyle: ButtonStyle{
+        //pressedTextColor: "lightgreen"
+        pressedBackground: "image://theme/4-meegotouch-button" + __invertedString + "-background-pressed" + (position ? "-" + position : "")
+        }*/
+        }
+
+        Button {
+            id: btn1;
+            text: "1";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_1_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btn2;
+            text: "2";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_2_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btn3;
+            text: "3";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_3_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btn4;
+            text: "4";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_4_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btn5;
+            text: "5";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_5_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btn6;
+            text: "6";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_6_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btn7;
+            text: "7";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_7_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btn8;
+            text: "8";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_8_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btn9;
+            text: "9";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_9_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btnA;
+            text: "A";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_A_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btnB;
+            text: "B";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_B_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btnC;
+            text: "C";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_C_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btnD;
+            text: "D";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_D_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btnE;
+            text: "E";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_E_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+        Button {
+            id: btnF;
+            text: "F";
+            width: 92;
+            height: 92;
+            onClicked:{
+                wMain.on_btn_F_pressed(txtOui.text);
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btnBack;
+            text: "<-";
+            width: 92;
+            height: 92;
+            onClicked: {
+                wMain.on_btnBack_pressed();
+                txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btnClear;
+            text: "Clear";
+            width: 92;
+            height: 92;
+            onClicked: {
+                wMain.clear();
+                txtOui.text="";
+                //txtOui.text=currentOUI;
+            }
+        }
+
+        Button {
+            id: btGetOrg;
+            text: "Get Org";
+            width: 92*2;
+            height: 92;
+            onClicked: {
+                wMain.getOrg();
+                txtORG.text=txtORG;
+                //txtOui.text=currentOUI;
+            }
+        }
     }
 
-    KeypadButton{
-	id: button0;
-	x: 190
-	y: 554
-	text: "0";
-	onPressed: {
-	    if (number.text.length<30){
-		number.text = number.text + "0"
-	    }
-	}
-    }
 
-    Button{
-	text: "Kall"
-	width: 210;
-	height: 62;
-	x: 20
-	y: 554 + 110
-	onClicked: {
-	    wMain.kall(number.text);
-	}
+    state: screen.currentOrientation == Screen.Portrait ? "portrait" : "landscape"
 
-	platformStyle: ButtonStyle{
-	    background: "image://theme/color2-meegotouch-button-accent-background"
-	    pressedBackground: "image://theme/color2-meegotouch-button-accent-background-pressed"
-	}
+    states: [
+        State {
+            name: "landscape"
+            PropertyChanges { target: btnSeparator; visible: false }
+            AnchorChanges  { target: txtOrg; anchors.verticalCenter: btn0.verticalCenter }
+            AnchorChanges  { target: txtOui; anchors.verticalCenter: btn0.verticalCenter }
+
+        },
+        State {
+            name: "portrait"
+            PropertyChanges { target: btnSeparator; visible: true }
+            AnchorChanges  { target: txtOrg; anchors.verticalCenter: undefined}
+            AnchorChanges  { target: txtOui; anchors.verticalCenter: undefined}
+        }
+    ]
+
+    transitions: Transition {
+        PropertyAnimation { properties: "x,y"; duration: 500 }
     }
 }
