@@ -4,7 +4,13 @@
         <file>qml/main.qml</file>
         <file>qml/MainPage.qml</file>
         <file>qml/TittleBar.qml</file>
-        <file>icons/logo.png</file>
-        <file>icons/applogo.png</file>
+        <file>qml/WritePage.qml</file>
+        <file>qml/NetworkList.qml</file>
+        <file>resources/icons/applogo.png</file>
+        <file>resources/icons/input.png</file>
+        <file>resources/icons/left.png</file>
+        <file>resources/icons/list.png</file>
+        <file>resources/icons/logo.png</file>
+        <file>resources/icons/networks.png</file>
     </qresource>
 </RCC>

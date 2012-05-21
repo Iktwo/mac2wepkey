@@ -6,25 +6,11 @@ PageStackWindow {
 
     initialPage: mainPage
 
-    //showStatusBar: false
-    //showToolBar: false
-
     MainPage {
-	id: mainPage
-
-	anchors.top: parent.top
-	anchors.left: parent.left
-	anchors.right: parent.right
-	anchors.bottom: commonTools.top
-    }
-
-    ToolBarLayout {
-        id: commonTools
-        visible: true
-        ToolIcon {
-            platformIconId: "toolbar-view-menu"
-            anchors.right: (parent === undefined) ? undefined : parent.right
-            onClicked: (myMenu.status == DialogStatus.Closed) ? myMenu.open() : myMenu.close()
+        id: mainPage
+        orientationLock: PageOrientation.LockPortrait
+        Component.onCompleted: {
+            theme.inverted=true;
         }
     }
 
@@ -33,17 +19,15 @@ PageStackWindow {
         visualParent: pageStack
         MenuLayout {
 
-	    MenuItem { text: qsTr("About")
-		onClicked: myDialog.open();
-	    }
-
-	    MenuItem { text: qsTr("Quit")
-		onClicked: wMain.quit();
-	    }
+            MenuItem { text: qsTr("About")
+                onClicked: {
+                    pageStack.push(aboutDialog);
+                }
+            }
         }
     }
 
     AboutDialog{
-	id: myDialog
+        id: aboutDialog
     }
 }

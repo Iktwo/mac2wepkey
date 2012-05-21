@@ -16,15 +16,18 @@ Column {
         property alias authorLink: authorLink.text;
 
         id: mainPageColumn
-        width: 360
-        height: 73
-        anchors.bottomMargin: 567
-        anchors.fill: parent
+        width: parent.width
+        height: 72
+
+        Component.onCompleted: {
+            console.log("mainPageTitleText"+mainPageTitleText.y)
+            console.log("mainPageAuthorText"+mainPageAuthorText.y)
+        }
 
         Rectangle {
             id: mainPageTitle
             width: parent.width
-            height: 73
+            height: 72
 
             Label {
                 id: mainPageTitleText
@@ -43,7 +46,7 @@ Column {
             Label {
                 id: mainPageAuthorText
                 x: mainPageTitle.width-15-mainPageAuthorText.width-image1.width
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenter: mainPageTitleText.verticalCenter
                 font.pixelSize: 30
                 color:  "white"
                 MouseArea {
