@@ -19,10 +19,12 @@ Page {
 
         WritePage{
             id: writePage;
+            orientationLock: PageOrientation.LockPortrait
         }
 
         NetworkList{
             id: networkListPage;
+            orientationLock: PageOrientation.LockPortrait
         }
     }
 

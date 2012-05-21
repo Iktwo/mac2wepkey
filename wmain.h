@@ -10,6 +10,7 @@
 #include <QtGui>
 #include <QDBusInterface>
 #include <QFile>
+#include <QClipboard>
 
 #include "networkdetails.h"
 #include <stdint.h>

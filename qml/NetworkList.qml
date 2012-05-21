@@ -7,61 +7,72 @@ Page {
 
     tools: commonTools
 
-    /*InfoBanner{
-        id: bannerFullPath
-        text: actualDir
+    InfoBanner{
+        id: infoBanner;
         timerEnabled: true
-        timerShowTime: 3500
+        timerShowTime: 2500
         z: 1
-        topMargin: 90+10
-        //height: 100;
-    }*/
+    }
 
     ListView {
         id: listview
         anchors.top: parent.top
-        anchors.bottom: btnScan.bottom
+        anchors.bottom: btnScan.top
         anchors.left: parent.left
         anchors.right: parent.right
-        //anchors.fill: parent
-        //width: mainPage.width
         clip: true
         model: networksModel
-        cacheBuffer: 200;
+        contentHeight: networksModelCount * delegate.height
 
         delegate: ListDelegate{
-            Label {
-                id: lblEssid;
+            id: delegate
+            width: parent.width
+            height: lblBssid.height + lblOrg.height + 20
 
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.leftMargin: 3
+            Rectangle{
+                anchors.fill: parent
+                color: "#000000"
 
-                text: essid;
-                //font.pixelSize: 28
-            }
+                Label {
+                    id: lblEssid;
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.leftMargin: 3
+                    text: essid;
+                }
 
-            Label {
-                id: lblBssid;
+                Label {
+                    id: lblBssid;
+                    anchors.left: lblEssid.right
+                    anchors.top: parent.top
+                    text: "-"+bssid;
+                }
 
-                anchors.left: lblEssid.right
-                anchors.top: parent.top
+                Label {
+                    id: lblOrg;
+                    text: org;
+                    anchors.top: lblEssid.bottom
+                }
 
-                text: "-"+bssid;
-                //font.pixelSize: 28
-            }
+                Label {
+                    id: lblChannel;
+                    text: "Ch "+channel;
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                }
 
-            Label {
-                id: lblOrg;
-                text: org;
-                anchors.top: lblEssid.bottom
-            }
-
-            Label {
-                id: lblChannel;
-                text: "Ch "+channel;
-                anchors.right: parent.right
-                anchors.top: parent.top
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        var key = wMain.getKey(bssid);
+                        if (key == "Not found"){
+                            infoBanner.text = "Key not found";
+                        }else{
+                            infoBanner.text = "Key found, " + key +" copied to clipboard";
+                        }
+                        infoBanner.show();
+                    }
+                }
             }
         }
     }

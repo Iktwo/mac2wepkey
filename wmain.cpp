@@ -173,7 +173,26 @@ QString WMain::getKey(QString mac){
       6416F0 - Huawei (INFINITUMXXXX)
       781DBA - Huawei (INFINITUMXXXX)
     */
-    return "";
+
+    if (
+            mac.startsWith("000FE2") || mac.startsWith("001882") ||
+            mac.startsWith("001E10") || mac.startsWith("0022A1") ||
+            mac.startsWith("002568") || mac.startsWith("00259E") ||
+            mac.startsWith("00E0FC") || mac.startsWith("286ED4") ||
+            mac.startsWith("6416F0") || mac.startsWith("781DBA")
+            ){
+        QString key = getHuaweiKey(mac);
+        QClipboard *clipboard = QApplication::clipboard();
+        clipboard->setText(key);
+        return key;
+    }else if (mac.startsWith("002196") || mac.startsWith("00036F")){
+        QString key = getTelseyKey(mac);
+        QClipboard *clipboard = QApplication::clipboard();
+        clipboard->setText(key);
+        return key;
+    }else{
+        return "Not found";
+    }
 }
 
 QString WMain::getTelseyKey(QString mac){
@@ -475,4 +494,5 @@ QString WMain::getOrg(QString oui){
 void WMain::addNetwork(QString essid, QString bssid, int channel,QString org){
     networksList.append(new NetworkDetails(essid,bssid,channel,org));
     rootContext->setContextProperty("networksModel", QVariant::fromValue(networksList));
+    rootContext->setContextProperty("networksModelCount",networksList.count());
 }
