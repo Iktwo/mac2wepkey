@@ -12,5 +12,6 @@
         <file>resources/icons/list.png</file>
         <file>resources/icons/logo.png</file>
         <file>resources/icons/networks.png</file>
+        <file>resources/data/alice.xml</file>
     </qresource>
 </RCC>

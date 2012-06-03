@@ -2,7 +2,8 @@ CONFIG += qdeclarative-boostable
 
 SOURCES += main.cpp \
     wmain.cpp \
-    networkdetails.cpp
+    networkdetails.cpp \
+    sha256.cpp
 
 QT += dbus
 
@@ -29,7 +30,8 @@ RESOURCES += \
 
 HEADERS += \
     wmain.h \
-    networkdetails.h
+    networkdetails.h \
+    sha256.h
 
 
 

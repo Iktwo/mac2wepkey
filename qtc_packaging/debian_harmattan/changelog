@@ -1,4 +1,4 @@
-mac2wepkey (2.0.3) unstable; urgency=low
-  * Removed unnecesary code
+mac2wepkey (2.0.4) unstable; urgency=low
+  * Fixed huawei
 
  -- Iktwo <iktwo@ovi.com>  Sun, 20 May 2012 18:36:59 -0700

@@ -378,7 +378,7 @@ Page {
             onClicked: {
                 txtKey.text="";
                 if (txtMac.text.length>7){
-                    txtKey.text=wMain.getTelseyKey(txtMac.text);
+                    txtKey.text=wMain.getKey(txtMac.text);
                 }else{
                     infoBanner.text="Please fill the OUI first";
                     infoBanner.show();

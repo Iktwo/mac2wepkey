@@ -173,7 +173,7 @@ QString WMain::getKey(QString mac){
       6416F0 - Huawei (INFINITUMXXXX)
       781DBA - Huawei (INFINITUMXXXX)
     */
-
+    mac=mac.remove(':');
     if (
             mac.startsWith("000FE2") || mac.startsWith("001882") ||
             mac.startsWith("001E10") || mac.startsWith("0022A1") ||
@@ -181,12 +181,12 @@ QString WMain::getKey(QString mac){
             mac.startsWith("00E0FC") || mac.startsWith("286ED4") ||
             mac.startsWith("6416F0") || mac.startsWith("781DBA")
             ){
-        QString key = getHuaweiKey(mac);
+        QString key = getHuaweiKey(mac).toUpper();
         QClipboard *clipboard = QApplication::clipboard();
         clipboard->setText(key);
         return key;
     }else if (mac.startsWith("002196") || mac.startsWith("00036F")){
-        QString key = getTelseyKey(mac);
+        QString key = getTelseyKey(mac).toUpper();
         QClipboard *clipboard = QApplication::clipboard();
         clipboard->setText(key);
         return key;
@@ -220,8 +220,6 @@ QString WMain::getTelseyKey(QString mac){
     b ^= a; b -= rot(a,14); \
     c ^= b; c -= rot(b,24); \
 }
-
-    mac=mac.remove(':');
 
     uint32_t * keyd;
     uint32_t seed = 0;

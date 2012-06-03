@@ -13,6 +13,7 @@
 #include <QClipboard>
 
 #include "networkdetails.h"
+#include "sha256.h"
 #include <stdint.h>
 
 class QDBusMessage;
@@ -29,6 +30,7 @@ public slots:
     QString getHuaweiKey(QString mac);
     QString getHuaweiSSID(QString mac);
     QString getKey(QString mac);
+    //QString getAliceKey(QString mac);
     void wlanScanResults(const QDBusMessage &status);
     void addNetwork(QString essid, QString bssid, int channel,QString org);
     void startScan();
